@@ -29,7 +29,7 @@ class User extends Authenticatable
     public function tracker()
     {
         return $this->hasMany(
-            Todos::class,'user_id','id'
+            Tracker::class,'user_id','id'
         );
     }
 }

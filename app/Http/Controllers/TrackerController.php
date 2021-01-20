@@ -12,8 +12,8 @@ class TrackerController extends Controller
 {
     public function showAll()
     {
-        
-        $tracker = DB::table('tracker')->get();
+        $tracker = Auth::user()->tracker;
+
         return view("dashboard", compact('tracker'));
 
     }
