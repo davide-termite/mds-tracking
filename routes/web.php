@@ -27,6 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\TrackerController::class, 'showAll'])->name("dashboard-show");
     Route::post('/dashboard', [App\Http\Controllers\TrackerController::class, 'create'])->name("dashboard-create");
     
-    Route::get('/dashboard/:codice', [App\Http\Controllers\TrackerController::class, 'showSingle']);
+    Route::get('/dashboard/{codice}', [App\Http\Controllers\TrackerController::class, 'showSingle']);
 
 });

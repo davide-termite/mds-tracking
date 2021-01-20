@@ -12,18 +12,19 @@ class TrackerController extends Controller
 {
     public function showAll()
     {
-        $tracker = Auth::user()->tracker;
-
+        $tracker = Auth::user()->tracker;      
         return view("dashboard", compact('tracker'));
 
     }
 
     public function showSingle($codice)
-    {
-        $trackers = DB::table('tracker')->get();
-        $tracker = $trackers->find($codice);
+    {        
+        $trackers= Tracker::all();
+        $tracker = $trackers->where('codice', $codice)->first();
+        
+        // dd(($tracker));
 
-        return view("info");
+        return view("info", ['tracker' => $tracker]);
     }
 
     public function create(Request $request)
