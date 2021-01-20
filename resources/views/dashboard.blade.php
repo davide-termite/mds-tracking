@@ -23,7 +23,7 @@
         @endif
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-6">
                 <h2 class="border-bottom p-3">Le tue spedizioni</h2>
                 <div class="card-body mt-3">
                     @if (count($tracker) !== 0)
@@ -41,7 +41,7 @@
                     @endif
                 </div>
             </div>
-            <div class="border-left col-8">
+            <div class="border-left col-6">
                 <h2 class="border-bottom p-3">Inserisci Spedizione</h2>
                 <div class="card-body mt-3">
                     <form method="POST" action="{{ route('dashboard-create') }}">
