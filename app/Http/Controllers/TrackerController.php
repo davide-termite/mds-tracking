@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Tracker;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Artisan;
+
+use Illuminate\Http\Request;
 
 class TrackerController extends Controller
 {
-    public function showAll()
+    public function cron(){
+        Artisan::call('request:api');
+    }
+    
+    public function showAllUser()
     {
         $tracker = Auth::user()->tracker;      
         return view("dashboard", compact('tracker'));
@@ -49,6 +55,6 @@ class TrackerController extends Controller
             }
         }
         
-
     }
+
 }

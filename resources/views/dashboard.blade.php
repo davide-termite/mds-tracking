@@ -59,7 +59,7 @@
                             <label for="descrizione" class="col-md-4 col-form-label text-md-right">{{ __('Descrizione') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="descrizione" type="text" placeholder="Inserisci una descrizione" class="form-control" name="descrizione" rows="10"></textarea>
+                                <textarea id="descrizione" type="text" placeholder="Inserisci una descrizione" class="form-control" name="descrizione" rows="10" required></textarea>
                             </div>
                         </div>
 

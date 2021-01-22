@@ -18,6 +18,7 @@
         <p id="stato-output"></p>
         <h3>Ultimo Aggiornamento</h3>
         <p id="desc-output"></p>
+        
     </div>
 
     <script>
@@ -31,7 +32,6 @@
                 dataType: 'json',
 
                 success: function(data){
-                    // console.log(data);
                     populateHtml(data)
                 },
 
@@ -45,8 +45,14 @@
         function populateHtml(response){
             const statoOutput = $("#stato-output");
             const dataOutput = $("#desc-output");
-            statoOutput.html(response.stato)
-            dataOutput.html(response.data_aggiornamento)
+            
+            if(response.stato && response.data_aggiornamento){
+                statoOutput.html(response.stato)
+                dataOutput.html(response.data_aggiornamento)
+            } else{
+                statoOutput.html("Errore")
+                dataOutput.html(response.descrizione)
+            }
         }
     </script>
 @endsection
