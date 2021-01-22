@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TrackerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +21,16 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\TrackerController::class, 'showUserCodes'])->name("dashboard-show");
+    Route::post('/dashboard', [App\Http\Controllers\TrackerController::class, 'insertCode'])->name("dashboard-create");
     
-    Route::get('/dashboard', [App\Http\Controllers\TrackerController::class, 'showAllUser'])->name("dashboard-show");
-    Route::post('/dashboard', [App\Http\Controllers\TrackerController::class, 'create'])->name("dashboard-create");
-    
-    Route::get('/dashboard/{codice}', [App\Http\Controllers\TrackerController::class, 'showSingle']);
-    
-    
+    Route::get('/dashboard/{codice}', [App\Http\Controllers\TrackerController::class, 'showSingleCode']);   
+});
+
+Route::group(['middleware' => ['auth', 'reception']], function() {
+    Route::get('/dashboard', [App\Http\Controllers\ReceptionController::class, 'index']);
 });
 
 Route::get('/cron', [App\Http\Controllers\TrackerController::class, 'cron']);
-    
+
 // })

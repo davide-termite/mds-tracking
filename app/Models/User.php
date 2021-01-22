@@ -21,8 +21,13 @@ class User extends Authenticatable
         'cognome',
         'email',
         'username',
-        'password',
+        'password'
     ];
+    
+    public function isReception()
+    {
+        return $this->flag_reception;
+    }
 
     public $timestamps = false;
 
