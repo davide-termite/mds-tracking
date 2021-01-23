@@ -33,6 +33,6 @@ class PaccoConsegnato extends Mailable
      */
     public function build()
     {
-        return $this->from('reception@mds.com')->view('mail');
+        return $this->from('mds.devel+testphpreception@gmail.com')->view('mail');
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Tracker;
+use App\Models\User;
 use App\Mail\PaccoConsegnato;
 
 use Illuminate\Http\Request;
@@ -33,7 +33,7 @@ class ReceptionController extends Controller
         return view("reception-info", ['tracker' => $tracker, 'stato' => $stato, 'user' => $user]);
     }
 
-    public function sendMail($codice ,$id){
+    public function sendMail($codice, $id){
 
         $user = User::find($id);
         
@@ -43,13 +43,12 @@ class ReceptionController extends Controller
         if ($tracker->mail_sent === 1) {
             
             return redirect('/reception')->with('error', 'Una Mail è stata già inviata in precedenza!');
-
+            
         } else {
-
+            
+            Mail::to($user->email)->send(new PaccoConsegnato($user, $tracker));
+            
             DB::table('tracker')->where('codice', '=', $codice)->update(['mail_sent' => '1', 'stato' => 'Pronto per la consegna']);
-
-            Mail::to($user->email)->send(new PaccoConsegnato($id, $codice));
-
             return redirect('/reception')->with('success', 'Mail inviata correttamente!');
         }
         
