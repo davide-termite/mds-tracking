@@ -15,6 +15,7 @@ class Tracker extends Model
         'user_id',
         'codice',
         'descrizione',
+        'mail_sent'
     ];
 
     public $timestamps = false;

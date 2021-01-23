@@ -19,16 +19,22 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth']], function () {
     
-    Route::get('/dashboard', [App\Http\Controllers\TrackerController::class, 'showUserCodes'])->name("dashboard-show");
+    Route::get('/dashboard', [App\Http\Controllers\TrackerController::class, 'showUserCodes']);
     Route::post('/dashboard', [App\Http\Controllers\TrackerController::class, 'insertCode'])->name("dashboard-create");
     
     Route::get('/dashboard/{codice}', [App\Http\Controllers\TrackerController::class, 'showSingleCode']);   
 });
 
 Route::group(['middleware' => ['auth', 'reception']], function() {
-    Route::get('/dashboard', [App\Http\Controllers\ReceptionController::class, 'index']);
+    Route::get('/dashboard', function () {
+        return redirect('reception');
+    });
+
+    Route::get('/reception', [App\Http\Controllers\ReceptionController::class, 'index'])->name("dashboard-reception");
+    Route::get('/reception/{codice}', [App\Http\Controllers\ReceptionController::class, 'status']);
+    Route::put('/reception/{codice}/{id}/sendmail', [App\Http\Controllers\ReceptionController::class, 'sendMail'])->name("send-mail");
 });
 
 Route::get('/cron', [App\Http\Controllers\TrackerController::class, 'cron']);

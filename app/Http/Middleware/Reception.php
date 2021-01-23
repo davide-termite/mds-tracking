@@ -22,7 +22,6 @@ class Reception
         }
 
         if ( Auth::user()->flag_reception === 1) {
-            // return view('dashboard');
             return $next($request);
         }   else    {
             $tracker = Auth::user()->tracker;      

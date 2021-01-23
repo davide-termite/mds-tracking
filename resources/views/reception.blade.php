@@ -2,12 +2,44 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <h1>{{ config('app.name') }} Reception</h1>
-        </div>
+        <h1 class="my-3">Reception Dashboard</h1>
 
-        <div class="row">
-            
-        </div>
+            <div class="col-8 offset-2 p-3 ">
+                @if(session('success'))
+                <div class="alert alert-success">
+                  {{session('success')}}
+                </div>                    
+                @endif
+
+                @if(session('error'))
+    
+                <div class="alert alert-danger">
+                  {{session('error')}}
+                </div>
+                    
+                @endif
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Codice Spedizione</th>
+                      <th scope="col">Descrizione</th>
+                      <th scope="col">Stato</th>
+                      <th scope="col">Dettagli</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($trackers as $tracker)
+                    <tr>
+                      <td>{{$tracker->codice}}</td>
+                      <td>{{$tracker->descrizione}}</td>
+                      <td>{{$tracker->stato}}</td>
+                      <td><a href="/reception/{{$tracker->codice}} ">Visualizza Stato</a></td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+
+            </div>
     </div>
 @endsection

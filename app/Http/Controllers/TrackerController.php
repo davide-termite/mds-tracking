@@ -31,22 +31,17 @@ class TrackerController extends Controller
     {
         $input = $request->all();
 
-        $existing_trackers = DB::table('tracker')->get();
-        $tracker = new Tracker($input);
-        $tracker->user()->associate( Auth::user());
-        
-        foreach ($existing_trackers as $e_trackers) {
+        $checkTracker = Tracker::where('codice', $request->codice)->first();
 
-            if ($input['codice'] === $e_trackers->codice) {
-                return redirect()->back()->with('error', 'Codice già inserito');
-            }
-            else {
-
-                $tracker->save();
-                return redirect()->route('dashboard-show')->with('success', 'Codice aggiunto correttamente!');
-            }
+        if($checkTracker)
+        {
+            return redirect('/dashboard')->with('error', 'Codice già inserito');
+        }else{
+            $tracker = new Tracker($input);
+            $tracker->user()->associate( Auth::user());
+            $tracker->save();
+            return redirect('/dashboard')->with('success', 'Codice aggiunto correttamente!');
         }
-        
     }
 
     public function cron(){
