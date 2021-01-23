@@ -15,10 +15,13 @@
 
     <div class="container">
         <h3>Stato</h3>
-        <p id="stato-output"></p>
+        @if ($tracker->mail_sent === 1)
+            <p>Il tuo pacco è in reception!</p>
+        @else
+            <p id="stato-output"></p>
+        @endif
         <h3>Ultimo Aggiornamento</h3>
         <p id="desc-output"></p>
-        
     </div>
 
     <script>

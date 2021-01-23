@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Model\User;
+use App\Models\User;
 use App\Models\Tracker;
 
 use Illuminate\Bus\Queueable;
@@ -33,6 +33,6 @@ class PaccoConsegnato extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')->view('mail');
+        return $this->from('reception@mds.com')->view('mail');
     }
 }

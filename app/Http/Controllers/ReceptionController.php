@@ -33,7 +33,7 @@ class ReceptionController extends Controller
         return view("reception-info", ['tracker' => $tracker, 'stato' => $stato, 'user' => $user]);
     }
 
-    public function sendMail(Request $request, $codice ,$id){
+    public function sendMail($codice ,$id){
 
         $user = User::find($id);
         
@@ -41,11 +41,14 @@ class ReceptionController extends Controller
         $tracker = $trackers->where('codice', $codice)->first();
         
         if ($tracker->mail_sent === 1) {
+            
             return redirect('/reception')->with('error', 'Una Mail è stata già inviata in precedenza!');
+
         } else {
+
             DB::table('tracker')->where('codice', '=', $codice)->update(['mail_sent' => '1', 'stato' => 'Pronto per la consegna']);
 
-            // Mail::to()
+            Mail::to($user->email)->send(new PaccoConsegnato($id, $codice));
 
             return redirect('/reception')->with('success', 'Mail inviata correttamente!');
         }
